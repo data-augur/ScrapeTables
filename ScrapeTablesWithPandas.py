@@ -21,9 +21,9 @@ url='https://www.ecp.gov.pk/ResultDetails.aspx?EleId=10070&Election=General%20El
 #Fetch the page at the url using "requests" module
 r = requests.get(url, headers=header)
 
+#Read all tables in the response into a list of dataframes
+dataframes=pd.read_html(r.text, header=0)
 
-#Read all tables in the response into a dataframe
-dataframe=pd.read_html(r.text, header=0)
-
-print(dataframe)
-
+#Iterate through the data frames to access each table
+for dataframe in dataframes:
+    print(dataframe)
