@@ -7,6 +7,7 @@ Created on Fri Sep 28 18:20:34 2018
 """
 
 import requests
+import pandas as pd
 
 #Set Headers for request to the website 
 header = {
@@ -15,10 +16,14 @@ header = {
 }
 
 #URL from where the tables will be scraped
-url='https://electionpakistan.com/constituency-profile/?assembly=5&election=2&constituency=1&assemblyName=National%20Assembly&electionType=General%20Election%202008&constituencyName=NA-1%20Peshawar-I'
+url='https://www.ecp.gov.pk/ResultDetails.aspx?EleId=10070&Election=General%20Election%2025%20Jul%202018'
 
 #Fetch the page at the url using "requests" module
 r = requests.get(url, headers=header)
 
-#Print the response's text
-print(r.text);
+
+#Read all tables in the response into a dataframe
+dataframe=pd.read_html(r.text, header=0)
+
+print(dataframe)
+
